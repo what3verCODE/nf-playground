@@ -31,10 +31,13 @@ func Max(xs []float64) (float64, error) {
 
 // Min is the smallest number, or ErrEmpty.
 func Min(xs []float64) (float64, error) {
+	if len(xs) == 0 {
+		return 0, ErrEmpty
+	}
 	m := xs[0]
-	for i := 1; i < len(xs)-1; i++ {
-		if xs[i] < m {
-			m = xs[i]
+	for _, x := range xs[1:] {
+		if x < m {
+			m = x
 		}
 	}
 	return m, nil

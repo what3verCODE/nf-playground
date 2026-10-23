@@ -24,3 +24,17 @@ func TestMax(t *testing.T) {
 		t.Fatalf("Max = %v", got)
 	}
 }
+
+func TestMin(t *testing.T) {
+	if _, err := Min(nil); !errors.Is(err, ErrEmpty) {
+		t.Fatalf("Min(nil): %v", err)
+	}
+	for _, c := range []struct {
+		in   []float64
+		want float64
+	}{{[]float64{4}, 4}, {[]float64{5, 4}, 4}, {[]float64{3, 2, 1}, 1}, {[]float64{-3, 7, 2}, -3}} {
+		if got, err := Min(c.in); err != nil || got != c.want {
+			t.Errorf("Min(%v) = %v, %v, want %v", c.in, got, err, c.want)
+		}
+	}
+}
